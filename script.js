@@ -4,53 +4,24 @@ const FIREBASE_URL = 'https://abubakr-views-default-rtdb.firebaseio.com/views.js
 window.addEventListener('DOMContentLoaded', () => {
   const intro = document.getElementById('intro');
   const content = document.getElementById('content');
-  const music = document.getElementById('bg-music');
+  const video = document.getElementById('bg-video');
   const viewText = document.getElementById('view-count');
-  const canvas = document.getElementById('viewChart');
-  const ctx = canvas.getContext('2d');
   const volumeSlider = document.getElementById('volumeControl');
-volumeSlider.addEventListener('input', () => {
-  music.volume = parseFloat(volumeSlider.value);
-});
 
+  // 🔊 Устанавливаем громкость видео по умолчанию
+  video.volume = 0.4;
 
-  // 📈 Рисуем график
-  function drawChart(views) {
-    let steps = 10;
-    let data = [];
-    for (let i = 0; i < steps; i++) {
-      let value = Math.floor((views / steps) * i + Math.random() * 10);
-      data.push(value);
-    }
-    data.push(views);
-
-    let maxViews = Math.max(...data);
-    let points = data.map((v, i) => ({
-      x: (i / (data.length - 1)) * canvas.width,
-      y: canvas.height - (v / maxViews) * canvas.height
-    }));
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = 'lime';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(points[0].x, points[0].y);
-    for (let i = 1; i < points.length; i++) {
-      ctx.lineTo(points[i].x, points[i].y);
-    }
-    ctx.stroke();
-
-    if (viewText) {
-      viewText.innerText = `Просмотров: ${views}`;
-    }
-  }
+  // 🎛 Регулятор громкости
+  volumeSlider.addEventListener('input', () => {
+    video.volume = parseFloat(volumeSlider.value);
+  });
 
   // 📊 Получаем просмотры
   function getViews(callback) {
     fetch(FIREBASE_URL)
       .then(res => res.json())
       .then(data => {
-        const views = data ?? 3145; // если нет данных — старт с 3145
+        const views = data ?? 3145;
         callback(views);
       });
   }
@@ -80,9 +51,15 @@ volumeSlider.addEventListener('input', () => {
       content.style.display = 'block';
       document.body.classList.add('fade-in');
 
-      music.play().catch(() => {});
-      music.volume = 0.4; // 40% громкости
-      incrementViews(drawChart);
+      video.muted = false;
+      video.play().catch(() => {});
+      video.volume = 0.4;
+
+      incrementViews(views => {
+        if (viewText) {
+          viewText.innerText = `Просмотров: ${views}`;
+        }
+      });
     }, 500);
   });
 });
