@@ -184,6 +184,9 @@ body, html {
     padding: 15px;
   }
 
+  #view-count{
+    top:240px;
+  }
   .profile-inner {
     flex-direction: column;
     align-items: center;
