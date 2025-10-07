@@ -5,8 +5,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const intro = document.getElementById('intro');
   const content = document.getElementById('content');
   const video = document.getElementById('bg-video');
-  const viewText = document.getElementById('view-count');
   const volumeSlider = document.getElementById('volumeControl');
+  const viewNumber = document.getElementById('view-number');
 
   // 🔊 Устанавливаем громкость видео по умолчанию
   video.volume = 0.4;
@@ -51,13 +51,14 @@ window.addEventListener('DOMContentLoaded', () => {
       content.style.display = 'block';
       document.body.classList.add('fade-in');
 
-      video.muted = false;
+      video.muted = true;
+      video.load();
       video.play().catch(() => {});
       video.volume = 0.4;
 
       incrementViews(views => {
-        if (viewText) {
-          viewText.innerText = `Просмотров: ${views}`;
+        if (viewNumber) {
+          viewNumber.innerText = views;
         }
       });
     }, 500);

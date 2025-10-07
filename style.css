@@ -48,6 +48,44 @@ body, html {
   background: rgb(0, 0, 0);
   z-index: 2;
 }
+#snow-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1; /* тот же слой, что и bg-video */
+  pointer-events: none;
+  opacity: 0.5; /* ← прозрачность снега */
+}
+
+.profile {
+  position: relative; /* ← это ключ */
+  background: rgba(255, 255, 255, 0.644);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 400px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+#view-count {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 6px 12px;
+  color: white;
+  top:170px;
+  z-index: 1;
+  left:10px;
+}
+
 
 
 .overlay {
@@ -73,15 +111,6 @@ body, html {
   border-radius: 8px;
 }
 
-.profile {
-  margin: auto;
-  margin-top: 100px;
-  width: 400px;
-  background: rgba(255, 255, 255, 0.6);
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-}
 
 .profile-inner {
   display: flex;

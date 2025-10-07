@@ -21,6 +21,9 @@
     <source src="./music/m.mp4" type="video/mp4">
     Ваш браузер не поддерживает видео.
   </video>
+  <video id="snow-video" preload="auto" autoplay muted loop playsinline>
+  <source src="./music/n.mp4" type="video/mp4">
+</video>
   <div id="video-overlay"></div>
   <main id="content" style="display: none; margin-top: 50px; padding-top:50px; padding-bottom: 50px;">
     <div class="profile">
@@ -36,12 +39,16 @@
       </div>
 
       <!-- 🔗 Текстовые ссылки Telegram и Discord -->
-      <div style="margin-top: 20px;" class="socials-text">
+      <div style="margin-top: 20px; margin-bottom: 60px;" class="socials-text">
         <button class="activee" ><a style="text-decoration: none; color:rgb(0, 183, 255); font-size: medium;" href="https://t.me/prime_ly" target="_blank">Telegram</a></button> | 
         <button class="activee"><a style="text-decoration: none; color:rgb(24, 10, 37);  font-size: medium;" href="https://discord.com/users/yourid" target="_blank">Discord</a></button>
       </div>
 
-      <div style="color:rgb(0, 0, 0); margin-top: 17px;" id="view-count">Просмотров: 0</div>
+      <div id="view-count" style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 17px;">
+  <img src="./music/j.png" style="width: 30px; height: 30px;" />
+  <span id="view-number" style="font-size: 18px; color: black;">0</span>
+</div>
+
 
       <label style="color:rgb(0, 0, 0); margin-top: 15px;" for="volumeControl">Громкость:</label>
       <input style="margin-top: 15px;" type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.4">
