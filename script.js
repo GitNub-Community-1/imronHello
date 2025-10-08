@@ -51,7 +51,7 @@ window.addEventListener('DOMContentLoaded', () => {
       content.style.display = 'block';
       document.body.classList.add('fade-in');
 
-      video.muted = true;
+      video.muted = false;
       video.load();
       video.play().catch(() => {});
       video.volume = 0.4;
