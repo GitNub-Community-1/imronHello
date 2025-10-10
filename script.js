@@ -5,25 +5,24 @@ window.addEventListener('DOMContentLoaded', () => {
   const intro = document.getElementById('intro');
   const content = document.getElementById('content');
   const video = document.getElementById('bg-video');
+  const music = document.getElementById('bg-music');
   const volumeSlider = document.getElementById('volumeControl');
   const viewNumber = document.getElementById('view-number');
 
-  // 🔊 Устанавливаем громкость видео по умолчанию
-  video.volume = 0.4;
+  // 🎧 Музыка по умолчанию
+  music.volume = 0.4;
 
-  // 🎛 Регулятор громкости
+  // 🎛 Регулятор громкости управляет музыкой
   volumeSlider.addEventListener('input', () => {
-    video.volume = parseFloat(volumeSlider.value);
+    const value = parseFloat(volumeSlider.value);
+    music.volume = value;
   });
 
   // 📊 Получаем просмотры
   function getViews(callback) {
     fetch(FIREBASE_URL)
       .then(res => res.json())
-      .then(data => {
-        const views = data ?? 3145;
-        callback(views);
-      });
+      .then(data => callback(data ?? 3145));
   }
 
   // 🔁 Увеличиваем просмотры
@@ -51,10 +50,13 @@ window.addEventListener('DOMContentLoaded', () => {
       content.style.display = 'block';
       document.body.classList.add('fade-in');
 
-      video.muted = false;
-      video.load();
+      // Видео остаётся без звука
+      video.muted = true;
       video.play().catch(() => {});
-      video.volume = 0.4;
+
+      // Музыка запускается
+      music.play().catch(() => {});
+      music.volume = parseFloat(volumeSlider.value);
 
       incrementViews(views => {
         if (viewNumber) {
